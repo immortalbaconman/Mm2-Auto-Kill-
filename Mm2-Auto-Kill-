@@ -12,23 +12,21 @@ end
 function FindNewMurd()
     for i, murd in pairs(game:GetService("Players"):GetChildren()) do
         if murd and murd.Name ~= game:GetService("Players").LocalPlayer.Name and not table.find(killed, murd.Name) then
-            print(table.find(killed, murd.Name))
             MURD = murd
             KillAll()
-        elseif table.find(killed, murd.Name) then
-            print(table.find(killed, murd.Name))
-            print(MURD.Name .. " Was already killed")
         end
     end
 end
 
 function KillAll()
+    repeat 
+        wait()
         local args = {
     [1] = CFrame.new(Vector3.new(MURD.Character.HumanoidRootPart.CFrame.X,MURD.Character.HumanoidRootPart.CFrame.Y - 1,MURD.Character.HumanoidRootPart.CFrame.Z - 1), Vector3.new(-0, -0, -1)),
     [2] = Vector3.new(MURD.Character.HumanoidRootPart.Position.X + 2,MURD.Character.HumanoidRootPart.Position.Y + 1,MURD.Character.HumanoidRootPart.Position.Z - 4)
     }
     game:GetService("Players").LocalPlayer.Character.Knife.Throw:FireServer(unpack(args))
-    repeat wait() until MURD.Character.Humanoid.Health == 0
+    until MURD.Character.Humanoid.Health == 0
     table.insert(killed, MURD.Name)
     FindNewMurd()
 end
